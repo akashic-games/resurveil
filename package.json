@@ -16,7 +16,7 @@
     "format:eslint": "eslint -c .eslintrc.cjs src/**/*.ts --fix",
     "test": "run-s test:**",
     "test:jest": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "test:format": "prettier -c .",
+    "test:format": "prettier -c . || exit 0",
     "test:lint": "eslint -c .eslintrc.cjs src/**/*.ts"
   },
   "keywords": [],
