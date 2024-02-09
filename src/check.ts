@@ -12,7 +12,7 @@ export interface CheckOptions {
 export async function check(base: string, filepaths: string[], options?: CheckOptions) {
 	const configuration = options?.configuration;
 	if (!configuration || !configuration.rules) {
-		throw new Error(`configuration are not specified`);
+		throw new Error(`configuration is not specified`);
 	}
 	if (Object.keys(configuration.rules).length === 0) {
 		throw new Error(`"rules" are not specified`);
