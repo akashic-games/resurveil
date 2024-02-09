@@ -1,1 +1,1 @@
-export default { "*.js": { deny: [], allow: [] } }
+export default { rules: {"*.js": { deny: [], allow: [] }}}

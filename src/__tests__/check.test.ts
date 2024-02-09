@@ -28,16 +28,18 @@ describe("check", () => {
 
 	it("can check the files", async () => {
 		const configuration: Configuration = {
-			"*.txt": {
-				deny: [/test*/],
-				allow: [/test[12]/],
-			},
-			"*.md": {
-				deny: [/test*/],
-				allow: [/test[4]/],
+			rules: {
+				"*.txt": {
+					deny: [/test*/],
+					allow: [/test[12]/],
+				},
+				"*.md": {
+					deny: [/test*/],
+					allow: [/test[4]/],
+				},
 			},
 		};
-		await expect(check("base", ["index.txt", "index.md"])).resolves.toBeUndefined();
+		await expect(check("base", ["index.txt", "index.md"])).rejects.toThrow();
 		await expect(check("base", ["index.txt", "index.md"], { configuration })).rejects.toThrow();
 		await expect(check("base", ["index.html"], { configuration })).resolves.toBeUndefined();
 	});
