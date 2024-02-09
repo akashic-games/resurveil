@@ -38,7 +38,7 @@ async function main() {
 		if (!options.ignoreNoConfig) {
 			throw new Error(`Configuration file not specified.`);
 		}
-		logger.log(`${chalk.yellow("⚠")} Checking are skipped`);
+		logger.log(`${chalk.yellow("⚠")} Skipped the check`);
 	} else {
 		await check(cwd, program.args, { configuration: configuration ?? normalize() });
 		logger.log(`${chalk.green("✔")} All checks are fine`);
