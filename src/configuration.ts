@@ -11,8 +11,7 @@ export async function importConfiguration(path: string): Promise<Configuration> 
 	if (!isAbsolute(path)) throw new Error("Cannot import exception absolute path");
 	if (!supportedConfigurationFileExtensions.includes(extname(path))) throw new Error(`Not supported the extension: ${basename(path)}`);
 	const config = (await import(path)) as { default: Configuration } | Configuration;
-	// @ts-ignore
-	return normalize(config.default ? config.default : config);
+	return normalize(("default" in config ? config.default : config) as Configuration);
 }
 
 export function normalize(configuration: Partial<Configuration> = {}): Configuration {
