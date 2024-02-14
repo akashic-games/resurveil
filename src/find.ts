@@ -68,9 +68,11 @@ function detectWord(str: string, rule: ConfigurationRule): string | null {
 		if (str.includes(rule)) {
 			return rule;
 		}
-	} else if (rule instanceof RegExp && rule.test(str)) {
-		const m = str.match(rule)!;
-		return m[0];
+	} else if (rule instanceof RegExp) {
+		if (rule.test(str)) {
+			const m = str.match(rule)!;
+			return m[0];
+		}
 	}
 
 	return null;
