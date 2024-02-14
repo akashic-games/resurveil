@@ -35,7 +35,7 @@ export async function find(
 					if (allowed) {
 						logger.info(
 							chalk.gray(
-								`  ⚠️ '${detectedWord}' was rejected by '${deniedWord}', but it was exceptionally skipped by '${allowed}'.`,
+								`  ⚠️ line ${lineNumber}: '${line}' contained '${deniedWord}', but it was exceptionally skipped due to the rules of '${allowed}'`,
 							),
 						);
 						continue;
