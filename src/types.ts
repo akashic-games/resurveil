@@ -1,10 +1,10 @@
-export type ConfigurationRule = string | RegExp;
+export type ConfigurationRuleEntry = string | RegExp;
 
-interface ConfigurationRulePerFile {
-	deny: Array<ConfigurationRule>;
-	allow: Array<ConfigurationRule>;
+export interface ConfigurationRule {
+	deny: Array<ConfigurationRuleEntry>;
+	allow: Array<ConfigurationRuleEntry>;
 }
 
 export interface Configuration {
-	rules: Record<string, Partial<ConfigurationRulePerFile>>;
+	rules: Record<string, Partial<ConfigurationRule>>;
 }

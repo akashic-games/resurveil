@@ -2,7 +2,7 @@ import { createReadStream } from "fs";
 import { createInterface } from "readline/promises";
 import chalk from "chalk";
 import { logger } from "./logger.js";
-import type { ConfigurationRule } from "./types.js";
+import type { ConfigurationRuleEntry } from "./types.js";
 
 export interface FindResult {
 	lineNumber: number;
@@ -11,8 +11,8 @@ export interface FindResult {
 
 export async function find(
 	filename: string,
-	deniedWords: Array<ConfigurationRule>,
-	allowedWords?: Array<ConfigurationRule>,
+	deniedWords: Array<ConfigurationRuleEntry>,
+	allowedWords?: Array<ConfigurationRuleEntry>,
 ): Promise<FindResult | null> {
 	return new Promise<FindResult | null>((resolve, reject) => {
 		const readStream = createReadStream(filename);
@@ -63,7 +63,7 @@ export async function find(
 	});
 }
 
-function detectWord(str: string, rule: ConfigurationRule): string | null {
+function detectWord(str: string, rule: ConfigurationRuleEntry): string | null {
 	if (typeof rule === "string") {
 		if (str.includes(rule)) {
 			return rule;
