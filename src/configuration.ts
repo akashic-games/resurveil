@@ -15,9 +15,13 @@ export async function importConfiguration(path: string): Promise<Configuration> 
 	return normalize(config.default ? config.default : config);
 }
 
-export function normalize(configuration: Configuration = {}): Configuration {
-	for (const key of Object.keys(configuration)) {
-		const c = configuration[key];
+export function normalize(configuration: Partial<Configuration> = {}): Configuration {
+	if (!configuration.rules) {
+		configuration.rules = {};
+	}
+
+	for (const key of Object.keys(configuration.rules)) {
+		const c = configuration.rules[key];
 
 		if (c.deny != null) {
 			if (!Array.isArray(c.deny)) {
@@ -48,7 +52,7 @@ export function normalize(configuration: Configuration = {}): Configuration {
 		}
 	}
 
-	return configuration;
+	return configuration as Configuration;
 }
 
 export async function findConfigurationFileFromDir(paths: string[]) {

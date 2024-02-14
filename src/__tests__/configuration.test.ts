@@ -27,20 +27,22 @@ describe("importConfiguration", () => {
 
 	it("can import config.cjs", async () => {
 		const config = await importConfiguration(join(__dirname, "./fixtures/config.cjs"));
-		expect(Object.keys(config).length).toBe(2);
-		expect(config["*"].deny).toEqual(deny);
-		expect(config["*"].allow).toEqual(allow);
-		expect(config["*.md"].deny).toEqual(denyMd);
-		expect(config["*.md"].allow).toEqual(allowMd);
+		const rules = config.rules!;
+		expect(Object.keys(rules).length).toBe(2);
+		expect(rules["*"].deny).toEqual(deny);
+		expect(rules["*"].allow).toEqual(allow);
+		expect(rules["*.md"].deny).toEqual(denyMd);
+		expect(rules["*.md"].allow).toEqual(allowMd);
 	});
 
 	it("can import config.mjs", async () => {
 		const config = await importConfiguration(join(__dirname, "./fixtures/config.mjs"));
-		expect(Object.keys(config).length).toBe(2);
-		expect(config["*"].deny).toEqual(deny);
-		expect(config["*"].allow).toEqual(allow);
-		expect(config["*.md"].deny).toEqual(denyMd);
-		expect(config["*.md"].allow).toEqual(allowMd);
+		const rules = config.rules!;
+		expect(Object.keys(rules).length).toBe(2);
+		expect(rules["*"].deny).toEqual(deny);
+		expect(rules["*"].allow).toEqual(allow);
+		expect(rules["*.md"].deny).toEqual(denyMd);
+		expect(rules["*.md"].allow).toEqual(allowMd);
 	});
 
 	it("should reject the unknown extension configuration file", async () => {
@@ -57,7 +59,7 @@ describe("resolveConfiguration", () => {
 		mock({
 			"/path": {
 				to: {
-					"resurveilrc.mjs": `export default { "*.js": {} }`,
+					"resurveilrc.mjs": `export default { rules: { "*.js": {} }}`,
 				},
 			},
 		});
@@ -68,7 +70,7 @@ describe("resolveConfiguration", () => {
 
 	it("should resolve the configuration directory", async () => {
 		expect(await resolveConfiguration(".")).toBeNull();
-		expect(await resolveConfiguration("/path/to")).toEqual({ "*.js": { deny: [], allow: [] } });
+		expect(await resolveConfiguration("/path/to")).toEqual({ rules: { "*.js": { deny: [], allow: [] } } });
 	});
 
 	it("should throw error if a non-existent file is specified", async () => {
@@ -78,53 +80,61 @@ describe("resolveConfiguration", () => {
 
 describe("normalize", () => {
 	it("can normalize the configuration", () => {
-		expect(normalize({})).toEqual({});
-		expect(normalize({ "*": {} })).toEqual({ "*": { deny: [], allow: [] } });
+		expect(normalize({})).toEqual({ rules: {} });
+		expect(normalize({ rules: { "*": {} } })).toEqual({ rules: { "*": { deny: [], allow: [] } } });
 	});
 
 	it("should throw error if invalid configuration is specified", async () => {
 		expect(() =>
 			normalize({
-				"*": {
-					// @ts-ignore: invalid type
-					deny: "deniedWords",
-				},
-			}),
-		).toThrow();
-
-		expect(() =>
-			normalize({
-				"*": {
-					deny: [
-						"denied-word1",
-						"denied-word2",
-						/denied\-regexp\\d/,
+				rules: {
+					"*": {
 						// @ts-ignore: invalid type
-						0,
-					],
+						deny: "deniedWords",
+					},
 				},
 			}),
 		).toThrow();
 
 		expect(() =>
 			normalize({
-				"*": {
-					// @ts-ignore: invalid type
-					allow: () => void 0,
+				rules: {
+					"*": {
+						deny: [
+							"denied-word1",
+							"denied-word2",
+							/denied\-regexp\\d/,
+							// @ts-ignore: invalid type
+							0,
+						],
+					},
 				},
 			}),
 		).toThrow();
 
 		expect(() =>
 			normalize({
-				"*": {
-					allow: [
-						"allowed-word1",
-						"allowed-word2",
-						/allowed\-regexp\\d/,
+				rules: {
+					"*": {
 						// @ts-ignore: invalid type
-						false,
-					],
+						allow: () => void 0,
+					},
+				},
+			}),
+		).toThrow();
+
+		expect(() =>
+			normalize({
+				rules: {
+					"*": {
+						allow: [
+							"allowed-word1",
+							"allowed-word2",
+							/allowed\-regexp\\d/,
+							// @ts-ignore: invalid type
+							false,
+						],
+					},
 				},
 			}),
 		).toThrow();

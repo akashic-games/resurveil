@@ -5,4 +5,6 @@ interface ConfigurationRulePerFile {
 	allow: Array<ConfigurationRule>;
 }
 
-export type Configuration = Record<string, Partial<ConfigurationRulePerFile>>;
+export interface Configuration {
+	rules: Record<string, Partial<ConfigurationRulePerFile>>;
+}

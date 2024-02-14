@@ -29,23 +29,24 @@ resurveil [options] file1.txt file2.html file3.md ....
 
 ### Specification
 
-[micromatch][micromatch] を使ったパターンをキー名として検閲ルールを指定します。
-
-| キー名              | 形式               | 概要                                                                                                                        |
-| ------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| `"pattern"`         | `String`           | [micromatch][micromatch] を使ったパターン。このパターンと一致したファイル名を検閲の対象とする。                             |
-| `"pattern".deny`    | `Array`            | 検閲のルール。                                                                                                              |
-| `"pattern".deny[]`  | `String \| RegExp` | 検閲する文字列・正規表現。このルールが指定のファイル名の内容に含まれていた場合はリジェクトする。                            |
-| `"pattern".allow`   | `Array`            | 検閲から除外するルール。                                                                                                    |
-| `"pattern".allow[]` | `String \| RegExp` | 検閲から除外する文字列・正規表現。`"pattern".deny` に該当した場合、このルールに一致した場合は例外的にリジェクトを取り消す。 |
+| キー名                    | 形式               | 概要                                                                                                                        |
+| ------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `rules`                   | `Object`           | ファイル種別ごとの検閲ルール。                                                                                              |
+| `rules."pattern"`         | `String`           | [micromatch][micromatch] を使ったパターン。このパターンと一致したファイル名を検閲の対象とする。                             |
+| `rules."pattern".deny`    | `Array`            | 検閲のルール。                                                                                                              |
+| `rules."pattern".deny[]`  | `String \| RegExp` | 検閲する文字列・正規表現。このルールが指定のファイル名の内容に含まれていた場合はリジェクトする。                            |
+| `rules."pattern".allow`   | `Array`            | 検閲から除外するルール。                                                                                                    |
+| `rules."pattern".allow[]` | `String \| RegExp` | 検閲から除外する文字列・正規表現。`"pattern".deny` に該当した場合、このルールに一致した場合は例外的にリジェクトを取り消す。 |
 
 ### Example
 
 ```javascript
 export default {
-  "*.html": {
-    deny: ["your.company.com"],
-    allow: [/(?:www|public)\.your\.company\.com/],
+  rules: {
+    "*.html": {
+      deny: ["your.company.com"],
+      allow: [/(?:www|public)\.your\.company\.com/],
+    },
   },
 };
 ```
