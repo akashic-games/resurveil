@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import chalk from "chalk";
 import { program } from "commander";
@@ -32,7 +32,7 @@ async function main(): Promise<void> {
 		throw new Error(`No files are specified.`);
 	}
 	const cwd = process.cwd();
-	const configurationPath = join(cwd, options.config);
+	const configurationPath = resolve(cwd, options.config);
 	const configuration = await resolveConfiguration(configurationPath);
 	if (!configuration) {
 		if (!options.ignoreNoConfig) {

@@ -56,8 +56,16 @@ describe("importConfiguration", () => {
 
 describe("resolveConfiguration", () => {
 	it("should resolve the configuration directory", async () => {
+		mock({
+			"/path": {
+				to: {
+					"resurveilrc.mjs": `export default { rules: { "*.js": { deny: [], allow: [] } } }`,
+				},
+			},
+		});
 		expect(await resolveConfiguration(".")).toBeNull();
-		expect(await resolveConfiguration(join(__dirname, "fixtures"))).toEqual({ rules: { "*.js": { deny: [], allow: [] } } });
+		expect(await resolveConfiguration("/path/to")).toEqual({ rules: { "*.js": { deny: [], allow: [] } } });
+		mock.restore();
 	});
 
 	it("should throw error if a non-existent file is specified", async () => {

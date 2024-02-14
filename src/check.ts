@@ -1,4 +1,4 @@
-import { basename, join, relative } from "path";
+import { basename, relative, resolve } from "path";
 import chalk from "chalk";
 import micromatch from "micromatch";
 import { find } from "./find.js";
@@ -16,7 +16,7 @@ export async function check(base: string, filepaths: string[], options: CheckOpt
 	}
 
 	for (const filepath of filepaths) {
-		const absoluteFilepath = join(base, filepath);
+		const absoluteFilepath = resolve(base, filepath);
 		const relativeFilepath = relative(base, filepath);
 		const filename = basename(filepath);
 
