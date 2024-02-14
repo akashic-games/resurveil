@@ -55,7 +55,7 @@ describe("importConfiguration", () => {
 });
 
 describe("resolveConfiguration", () => {
-	it("should resolve the configuration directory", async () => {
+	beforeEach(() => {
 		mock({
 			"/path": {
 				to: {
@@ -63,9 +63,14 @@ describe("resolveConfiguration", () => {
 				},
 			},
 		});
+	});
+	afterEach(() => {
+		mock.restore();
+	});
+
+	it("should resolve the configuration directory", async () => {
 		expect(await resolveConfiguration(".")).toBeNull();
 		expect(await resolveConfiguration("/path/to")).toEqual({ rules: { "*.js": { deny: [], allow: [] } } });
-		mock.restore();
 	});
 
 	it("should throw error if a non-existent file is specified", async () => {

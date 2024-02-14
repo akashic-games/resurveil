@@ -5,6 +5,7 @@ export default {
   coverageReporters: ["lcov"],
   moduleFileExtensions: ["ts", "js"],
   extensionsToTreatAsEsm: [".ts"],
+  cache: false, // FIXME: ts-jest と mock-fs の相性が悪いのか、キャッシュを有効にすると2度目以降のテストに失敗することがあるためやむなく無効に
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1",
   },
