@@ -55,7 +55,7 @@ export function normalize(configuration: Partial<Configuration> = {}): Configura
 	return configuration as Configuration;
 }
 
-export async function findConfigurationFileFromDir(paths: string[]) {
+export async function findConfigurationFileFromDir(paths: string[]): Promise<string | null> {
 	for (const path of paths) {
 		for (const configurationFileName of defaultConfigurationFileNames) {
 			for (const ext of supportedConfigurationFileExtensions) {
@@ -68,7 +68,7 @@ export async function findConfigurationFileFromDir(paths: string[]) {
 	return null;
 }
 
-export async function resolveConfiguration(path: string) {
+export async function resolveConfiguration(path: string): Promise<Configuration | null> {
 	if (!fs.existsSync(path)) {
 		throw new Error(`${path} is not exists`);
 	}

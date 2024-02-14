@@ -9,7 +9,11 @@ export interface FindResult {
 	detectedWord: string;
 }
 
-export async function find(filename: string, deniedWords: Array<ConfigurationRule>, allowedWords?: Array<ConfigurationRule>) {
+export async function find(
+	filename: string,
+	deniedWords: Array<ConfigurationRule>,
+	allowedWords?: Array<ConfigurationRule>,
+): Promise<FindResult | null> {
 	return new Promise<FindResult | null>((resolve, reject) => {
 		const readStream = createReadStream(filename);
 		const readLineInterface = createInterface({
@@ -59,7 +63,7 @@ export async function find(filename: string, deniedWords: Array<ConfigurationRul
 	});
 }
 
-function detectWord(str: string, rule: ConfigurationRule) {
+function detectWord(str: string, rule: ConfigurationRule): string | null {
 	if (typeof rule === "string") {
 		if (str.includes(rule)) {
 			return rule;

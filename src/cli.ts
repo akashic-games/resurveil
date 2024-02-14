@@ -27,7 +27,7 @@ const options = program.opts();
 
 logger.level = options.quiet ? LogLevel.Error : LogLevel.All;
 
-async function main() {
+async function main(): Promise<void> {
 	if (!program.args.length && !options.ignoreCheck) {
 		throw new Error(`No files are specified.`);
 	}

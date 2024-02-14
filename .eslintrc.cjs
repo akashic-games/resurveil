@@ -7,7 +7,4 @@ module.exports = {
     sourceType: "module",
   },
   ignorePatterns: ["*.js", "*.cjs", "*.mjs", "**/*.d.ts"],
-  rules: {
-    "@typescript-eslint/explicit-function-return-type": 0,
-  },
 };
