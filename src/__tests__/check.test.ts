@@ -39,7 +39,6 @@ describe("check", () => {
 				},
 			},
 		};
-		await expect(check("base", ["index.txt", "index.md"])).rejects.toThrow();
 		await expect(check("base", ["index.txt", "index.md"], { configuration })).rejects.toThrow();
 		await expect(check("base", ["index.html"], { configuration })).resolves.toBeUndefined();
 	});

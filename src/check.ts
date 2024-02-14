@@ -9,12 +9,9 @@ export interface CheckOptions {
 	configuration: Configuration;
 }
 
-export async function check(base: string, filepaths: string[], options?: CheckOptions): Promise<void> {
-	const configuration = options?.configuration;
-	if (!configuration || !configuration.rules) {
-		throw new Error(`configuration is not specified`);
-	}
-	if (Object.keys(configuration.rules).length === 0) {
+export async function check(base: string, filepaths: string[], options: CheckOptions): Promise<void> {
+	const configuration = options.configuration;
+	if (!configuration.rules || Object.keys(configuration.rules).length === 0) {
 		throw new Error(`"rules" are not specified`);
 	}
 

@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import chalk from "chalk";
 import { program } from "commander";
 import { check } from "./check.js";
-import { normalize, resolveConfiguration } from "./configuration.js";
+import { resolveConfiguration } from "./configuration.js";
 import { LogLevel, logger } from "./logger.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -40,7 +40,7 @@ async function main(): Promise<void> {
 		}
 		logger.log(`${chalk.yellow("⚠")} Skipped the check`);
 	} else {
-		await check(cwd, program.args, { configuration: configuration ?? normalize() });
+		await check(cwd, program.args, { configuration });
 		logger.log(`${chalk.green("✔")} All checks are fine`);
 	}
 }
