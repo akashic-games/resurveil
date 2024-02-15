@@ -1,0 +1,7 @@
+node_modules/
+coverage/
+lib/
+src/**/__tests__/fixtures/
+
+package.json
+package-lock.json
