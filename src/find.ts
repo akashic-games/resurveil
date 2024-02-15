@@ -1,4 +1,4 @@
-import { createReadStream } from "fs";
+import { createReadStream } from "node:fs";
 import { createInterface } from "readline/promises";
 import chalk from "chalk";
 import { logger } from "./logger.js";

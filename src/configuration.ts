@@ -1,7 +1,7 @@
-import fs from "fs";
-import { stat } from "fs/promises";
-import { homedir } from "os";
-import { basename, extname, isAbsolute, join } from "path";
+import fs from "node:fs";
+import { stat } from "node:fs/promises";
+import { homedir } from "node:os";
+import { basename, extname, isAbsolute, join } from "node:path";
 import chalk from "chalk";
 import { defaultConfigurationFileNames, supportedConfigurationFileExtensions } from "./constants.js";
 import { logger } from "./logger.js";

@@ -1,7 +1,7 @@
-import fs from "fs";
-import { unlink } from "fs/promises";
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
+import fs from "node:fs";
+import { unlink } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { jest } from "@jest/globals";
 import mock from "mock-fs";
 import { findConfigurationFileFromDir, importConfiguration, normalize, resolveConfiguration } from "../configuration.js";

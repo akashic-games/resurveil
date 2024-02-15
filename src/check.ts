@@ -1,4 +1,4 @@
-import { basename, relative, resolve } from "path";
+import { basename, relative, resolve } from "node:path";
 import chalk from "chalk";
 import micromatch from "micromatch";
 import { find } from "./find.js";
