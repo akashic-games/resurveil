@@ -7,6 +7,10 @@
   "bin": {
     "resurveil": "lib/cli.js"
   },
+  "publishConfig": {
+    "@akashic:registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "scripts": {
     "prepare": "npm run build",
     "build": "tsc",
