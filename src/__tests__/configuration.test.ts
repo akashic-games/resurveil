@@ -59,7 +59,7 @@ describe("resolveConfiguration", () => {
 		mock({
 			"/path": {
 				to: {
-					"resurveilrc.mjs": `export default { rules: { "*.js": { deny: [], allow: [] } } }`,
+					"resurveilrc.mjs": "export default { rules: { \"*.js\": { deny: [], allow: [] } } }",
 				},
 			},
 		});
